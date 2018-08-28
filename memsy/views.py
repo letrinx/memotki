@@ -1,3 +1,4 @@
+from random import randint
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -25,11 +26,17 @@ class AddMemView(View):
             form.mem = form.cleaned_data['mem']
             form.save()
             return HttpResponseRedirect(redirect_to="/")
-        return HttpResponseRedirect(redirect_to="/mem/{}".format(form.id))
 
 
 
 class ShowMemView(View):
     def get(self, request, id):
-        mem = Mems.objects.get(id=id)
+        mem = get_object_or_404(id=id)
+        return render(request, "showmem.html", {'title': mem.title, 'mem': mem.mem})
+
+class RandomMemView(View):
+    def get(self, request):
+        count = Mems.objects.all().count()
+        random = randint(0, count-1)
+        mem = Mems.objects.all()[random]
         return render(request, "showmem.html", {'title': mem.title, 'mem': mem.mem})

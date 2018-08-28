@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Mems(models.Model):
     title = models.CharField(max_length=120)
     date_added = models.DateTimeField(auto_now_add=True)
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name="likes", blank=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     mem = models.ImageField(blank=False, upload_to='images/')
 

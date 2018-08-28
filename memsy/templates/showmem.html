@@ -2,5 +2,15 @@
 
 {% block content %}
     <h1>{{ title }}</h1>
-    <img src="{{ mem }}">
+    <img src="/images/{{ mem }}/" class="img-thumbnail" alt="{{ title }}">
+
+    <form action="{% url 'like' %}" method="POST">
+    {% csrf_token %}
+
+    {% if is_liked %}
+    <button type="submit" name="mem_id" value="{{ mem.id }}" class="btn btn-danger">Nielub</button>
+    {% else %}
+    <button type="submit" name="mem_id" value="{{ mem.id }}" class="btn btn-primary">Polub</button>
+    {% endif %}
+    </form>
 {% endblock %}

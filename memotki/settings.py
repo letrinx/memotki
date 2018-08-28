@@ -125,4 +125,5 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-MEDIA_URL = "memsy/images/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
+MEDIA_URL = "images/"

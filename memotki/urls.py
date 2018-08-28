@@ -17,12 +17,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 import memsy.views as views
+from . import settings
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', views.HomeView.as_view(), name='home'),
-    path('newmem', views.AddMemView.as_view(), name='addnew'),
+    path('newmem/', views.AddMemView.as_view(), name='addnew'),
     re_path(r'^mem/(?P<id>(\d+))/', views.ShowMemView.as_view(), name='showmem'),
+    path('random/', views.RandomMemView.as_view(), name='random'),
+    re_path(r'like/$', views.like_mem, name="like")
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
