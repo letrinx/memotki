@@ -1,16 +1,37 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <!--MEM -->
+    <div class='col-sm-6 col-sm-offset-3'>
     <h1>{{ title }}</h1>
     <img src="/images/{{ mem }}/" class="img-thumbnail" alt="{{ title }}">
 
-    <form action="{% url 'like' %}" method="POST">
-    {% csrf_token %}
+    {% if user.is_authenticated %}
+        <form action="" method="POST">
+        {% csrf_token %}
+        <!-- LIKES -->
+        {% if is_liked %}
+        <button type="submit" value="{{ mem.id }}" class="btn btn-danger">Dislike</button>
+        {% else %}
+        <button type="submit" value="{{ mem.id }}" class="btn btn-primary">Like</button>
+        {% endif %}
+        {{ total_likes }} likes
+        </form>
+        {% endif %}
 
-    {% if is_liked %}
-    <button type="submit" name="mem_id" value="{{ mem.id }}" class="btn btn-danger">Nielub</button>
-    {% else %}
-    <button type="submit" name="mem_id" value="{{ mem.id }}" class="btn btn-primary">Polub</button>
-    {% endif %}
-    </form>
+
+    <!-- COMMENTS -->
+    <div class="comment">
+    {% for comment in comments %}
+        <h1>{{ comment.user }}</h1>
+        {{ comment.created_date }}
+        <br>
+        {{ comment.text }}
+        <br>
+    {% empty %}
+        Brak komentarzy
+    </div>
+    {% endfor %}
+    <a class="btn btn-default" href="{% url 'addcomment' pk=id %}">Dodaj komentarz</a>
+    </div>
 {% endblock %}

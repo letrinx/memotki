@@ -11,13 +11,17 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">Home</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Home</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="{% url 'home' %}">Poczekalnia</a></li>
+      <li><a href="{% url 'top' %}">Top 3</a></li>
       <li><a href="{% url 'addnew' %}">Dodaj mema</a></li>
       <li><a href="{% url 'random' %}">Losuj</a></li>
-      <li><a href="/accounts/login">Zaloguj się!</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="/accounts/logout">Wyloguj się!</a></li>
+        {% else %}
+            <li><a href="/accounts/login">Zaloguj się!</a></li>
+        {% endif %}
     </ul>
   </div>
 </nav>

@@ -1,13 +1,29 @@
-<!-- templates/home.html -->
-{% extends 'base.html' %}
-
-{% block title %}Home{% endblock %}
+{% extends "base.html" %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-{% endif %}
+    <div class='col-sm-6 col-sm-offset-3'>
+    {% for mem in mem_list %}
+        <h1>{{ mem.title }}</h1>
+        <a href="/mem/{{ mem.id }}"><img src="/images/{{ mem.mem }}/" class="img-thumbnail" alt="{{ mem.title }}"></a>
+    {% endfor %}
+    </div>
+    <div class='col-sm-6 col-sm-offset-3'>
+    {% if is_paginated %}
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li>
+                <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+            </li>
+    {% endif %}
+        <li class="">
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+        </li>
+    {% if page_obj.has_next %}
+        <li>
+            <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+        </li>
+    {% endif %}
+    </ul>
+    {% endif %}
+    </div>
 {% endblock %}

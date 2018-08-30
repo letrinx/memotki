@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class='col-sm-6 col-sm-offset-3'>
+    {% for mem in mem_list %}
+        <h1>{{ mem.title }}</h1>
+        <a href="/mem/{{ mem.id }}"><img src="/images/{{ mem.mem }}/" class="img-thumbnail" alt="{{ mem.title }}"></a>
+    {% endfor %}
+    </div>
+
+{% endblock %}

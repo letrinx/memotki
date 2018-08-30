@@ -29,7 +29,9 @@ urlpatterns = [
     path('newmem/', views.AddMemView.as_view(), name='addnew'),
     re_path(r'^mem/(?P<id>(\d+))/', views.ShowMemView.as_view(), name='showmem'),
     path('random/', views.RandomMemView.as_view(), name='random'),
-    re_path(r'like/$', views.like_mem, name="like")
+    path('top', views.TopMemsView.as_view(), name="top"),
+    path('accounts/signup/', views.SignUp.as_view(), name='signup'),
+    re_path(r'^addcomment/(?P<pk>(\d+))/', views.AddCommentView.as_view(), name='addcomment'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
